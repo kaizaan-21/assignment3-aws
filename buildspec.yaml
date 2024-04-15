@@ -1,5 +1,9 @@
 version: 0.2
+
 phases:
+  install:
+    runtime-versions:
+      python: 3.9
   pre_build:
     commands:
       - echo Logging in to Amazon ECR...
@@ -7,17 +11,12 @@ phases:
       - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 851725622938.dkr.ecr.us-east-1.amazonaws.com
   build:
     commands:
-      - echo Build started on date
+      - echo Build started on `date`
       - echo Building the Docker image...
-      - docker build -t final .
-      - docker tag keshwani-assignment-3:latest 851725622938.dkr.ecr.us-east-1.amazonaws.com/keshwani-assignment-3
+      - docker build -t keshwani-assignment3:latest .
+      - docker tag keshwani-assignment3:latest 851725622938.dkr.ecr.us-east-1.amazonaws.com/keshwani-assignment3:latest
   post_build:
     commands:
-      - echo Build completed on date
-      - echo Pushing the Docker images...
-      - docker push 851725622938.dkr.ecr.us-east-1.amazonaws.com/keshwani-assignment-3
-      - echo Writing image definitions file...
-      - printf '[{"name":"%s","imageUri":"%s"}]' "Keshwani" "851725622938.dkr.ecr.us-east-1.amazonaws.com/keshwani-assignment-3" > imagedefinitions.json
-artifacts:
-  files:
-    - imagedefinitions.json
+      - echo Build completed on `date`
+      - echo Pushing the Docker image to ECR...
+      - docker push 851725622938.dkr.ecr.us-east-1.amazonaws.com/keshwani-assignment3:latest

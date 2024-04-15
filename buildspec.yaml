@@ -10,14 +10,14 @@ phases:
       - echo Build started on date
       - echo Building the Docker image...
       - docker build -t final .
-      - docker tag assignment3:latest 851725622938.dkr.ecr.us-east-1.amazonaws.com/assignment3
+      - docker tag keshwani-assignment-3:latest 851725622938.dkr.ecr.us-east-1.amazonaws.com/keshwani-assignment-3
   post_build:
     commands:
       - echo Build completed on date
       - echo Pushing the Docker images...
-      - docker push 851725622938.dkr.ecr.us-east-1.amazonaws.com/assignment3
+      - docker push 851725622938.dkr.ecr.us-east-1.amazonaws.com/keshwani-assignment-3
       - echo Writing image definitions file...
-      - printf '[{"name":"%s","imageUri":"%s"}]' "Keshwani" "851725622938.dkr.ecr.us-east-1.amazonaws.com/assignment3" > imagedefinitions.json
+      - printf '[{"name":"%s","imageUri":"%s"}]' "Keshwani" "851725622938.dkr.ecr.us-east-1.amazonaws.com/keshwani-assignment-3" > imagedefinitions.json
 artifacts:
   files:
     - imagedefinitions.json
